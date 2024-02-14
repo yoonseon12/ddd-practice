@@ -1,7 +1,5 @@
 package dev.practice.order.domain.partner;
 
-import java.time.ZonedDateTime;
-
 import org.apache.commons.lang3.StringUtils;
 
 import dev.practice.order.common.util.TokenGenerator;
@@ -13,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "partners")
 public class Partner extends AbstractEntity {
 	private static final String PREFIX_PARTNER = "ptn_";
@@ -41,22 +40,41 @@ public class Partner extends AbstractEntity {
 	@Getter
 	@RequiredArgsConstructor
 	public enum Status {
-		ENABLE("활성화"), DISABLE("비활성화");
+		ENABLE("활성화"),
+		DISABLE("비활성화");
 
 		private final String description;
 	}
 
 	@Builder
 	public Partner(String partnerName, String businessNo, String email) {
-		if (StringUtils.isEmpty(partnerName)) throw new IllegalArgumentException("empty partnerName");
-		if (StringUtils.isEmpty(businessNo)) throw new IllegalArgumentException("empty businessNo");
-		if (StringUtils.isEmpty(email)) throw new IllegalArgumentException("empty email");
-
+		validatePartner(partnerName, businessNo, email);
 		this.partnerToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_PARTNER);
 		this.partnerName = partnerName;
 		this.businessNo = businessNo;
 		this.email = email;
 		this.status = Status.ENABLE;
+	}
+
+	private void validatePartner(String partnerName, String businessNo, String email) {
+		checkPartnerName(partnerName);
+		checkBusinessNo(businessNo);
+		checkEmail(email);
+	}
+
+	private void checkEmail(String email) {
+		if (StringUtils.isEmpty(email))
+			throw new IllegalArgumentException("empty email");
+	}
+
+	private void checkBusinessNo(String businessNo) {
+		if (StringUtils.isEmpty(businessNo))
+			throw new IllegalArgumentException("empty businessNo");
+	}
+
+	private void checkPartnerName(String partnerName) {
+		if (StringUtils.isEmpty(partnerName))
+			throw new IllegalArgumentException("empty partnerName");
 	}
 
 	public void disable() {
