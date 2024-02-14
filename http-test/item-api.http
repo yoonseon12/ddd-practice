@@ -3,7 +3,7 @@ POST http://localhost:8080/api/v1/items
 Content-Type: application/json
 
 {
-  "partnerToken": "ptn_oWkmVAFErP2zgALi",
+  "partnerToken": "ptn_ObgHQ0LVPzzJmusO",
   "itemName": "티셔츠",
   "itemPrice": 30000,
   "itemOptionGroupList": [
@@ -53,7 +53,15 @@ POST http://localhost:8080/api/v1/items/change-on-sales
 Content-Type: application/json
 
 {
-  "itemToken": "itm_XqbL4h1l5mz1mnMZ"
+  "itemToken": "itm_tLp6bMhW9n4rPENh"
+}
+
+### 아이템 1 비활성화
+POST http://localhost:8080/api/v1/items/change-end-of-sales
+Content-Type: application/json
+
+{
+  "itemToken": "itm_tLp6bMhW9n4rPENh"
 }
 
 ### 아이템 등록 2
@@ -125,5 +133,5 @@ Content-Type: application/json
 }
 
 ### 아이템 조회
-GET http://localhost:8080/api/v1/items/itm_lnTOhyzZcBheBsce
+GET http://localhost:8080/api/v1/items/itm_tLp6bMhW9n4rPENh
 Content-Type: application/json

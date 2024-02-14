@@ -1,14 +1,16 @@
 package dev.practice.order.interfases.partner;
 
 import dev.practice.order.domain.partner.Partner;
-import dev.practice.order.domain.partner.PartnerCommand;
 import dev.practice.order.domain.partner.PartnerInfo;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PartnerDto {
 
 	@Getter
@@ -25,6 +27,7 @@ public class PartnerDto {
 		@NotEmpty(message = "email 는 필수값 입니다")
 		private String email;
 
+		/* MapStructor로 해결 가능
 		public PartnerCommand toCommand() {
 			return PartnerCommand.builder()
 				.partnerName(partnerName)
@@ -32,6 +35,7 @@ public class PartnerDto {
 				.email(email)
 				.build();
 		}
+		*/
 	}
 
 	@Getter

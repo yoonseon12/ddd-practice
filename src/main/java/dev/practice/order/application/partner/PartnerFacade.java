@@ -1,4 +1,4 @@
-package dev.practice.order.application;
+package dev.practice.order.application.partner;
 
 import org.springframework.stereotype.Service;
 
